@@ -1,0 +1,26 @@
+   public function datasimpanan(){
+        $data = Simpanan::all();
+        return DataTables::of($data)
+        ->editColumn("namae", function ($data) {
+            return $data->anggota->nama_lengkap;
+        })->editColumn("alamat", function ($data) {
+            return $data->anggota->alamat;
+        })->addColumn('kredit', '-')->addColumn('jumlah_saldo', '-')->make(true);
+    }
+
+     $("#table_simpanan").DataTable({
+        processing:true,
+        serverside:true,
+        responsive: true,
+        autoWidth: false,
+        ajax:"{{url('simpanan/datasimpanan')}}",
+        columns: [
+                {data: 'namae',name: 'namae'},
+                {data: 'alamat',name:'alamat'},
+                {data: 'jenis_simpanan',name: 'jenis_simpanan'},
+                {data: 'jumlah_yangdisetor',name: 'jumlah_yangdisetor'},
+                {data: 'kredit',name: 'kredit'},
+                {data: 'jumlah_saldo',name: 'jumlah_Saldo'}
+                
+                
+                ]

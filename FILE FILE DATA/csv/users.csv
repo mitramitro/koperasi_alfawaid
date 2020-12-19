@@ -1,0 +1,2 @@
+id;anggota_id;username;email;password;level;remember_token;created_at;updated_at
+1;1;admin;admin@gmail.com;$2y$10$DVJS80GpCOrlfR627gHK8OxVnz/vAE4ZnRhRj2lzNUoVqZThYXxia;admin;ZC3H5gDZJmSmS0E6zwbQeVHPMTEQspKIX8ZAaz0Akgk3M3ZVKeMU8rF5SK7t;25/11/2020 6:06;25/11/2020 6:06

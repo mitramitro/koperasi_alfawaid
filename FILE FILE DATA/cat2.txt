@@ -1,0 +1,21 @@
+https://mytutorialswebsite.blogspot.com/2011/12/tutorial-accounting-debit-kredit-dengan.html
+https://stackoverflow.com/questions/51211897/remaining-balance-of-debit-credit-using-eloquent
+https://github.com/harkce/manajemen-tabungan
+
+  
+                    @if($count == 1)
+                      $d->jumlah_yangdisetor
+                    @endif
+                    @if($d->jumlah_yangdisetor !=0)
+                    {{ $saldo +=$d->jumlah_yangdisetor}}
+                    @endif
+
+                    @if($d->jumlah_yangditarik !=0)
+                    {{ $saldo -=$d->jumlah_yangditarik}}
+                    @endif
+
+ $debet=0;
+        $saldo=0;
+        $count = Simpanan::where('anggota_id', $id)->count();
+        $data= Simpanan::where('anggota_id',$id)->get();
+        return view('simpanan.detile_simpanan', compact('data','count','saldo','debet'));
