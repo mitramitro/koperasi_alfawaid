@@ -53,7 +53,6 @@ class SimpananController extends Controller
 
 =======
         })->make(true);
->>>>>>> 7b360a00510fd4203f1f89cf14a155e64ec04b35
             // return $saldo;
         //    return $data->sum('jumlah_yangdisetor');
            
