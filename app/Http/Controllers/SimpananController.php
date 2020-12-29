@@ -31,7 +31,7 @@ class SimpananController extends Controller
     }
 
     public function datasimpanan($id){
-        $saldo=100;
+        $saldo=0;
         $data= Simpanan::where('anggota_id',$id)->get();
         $count = Simpanan::where('anggota_id', $id)->count();
 
@@ -41,13 +41,14 @@ class SimpananController extends Controller
             return $data->anggota->nama_lengkap;
         })->editColumn("alamat", function ($data) {
             return $data->anggota->alamat;
-        })->editColumn('jumlah_saldo', function($data)use($saldo, $count){ 
+        })->addColumn('jumlah_saldo', function($data)use($saldo, $count){ 
             if($count == 1){
             $saldo = $data->jumlah_yangdisetor;
             }else if($data->jumlah_yangdisetor !=0){
            
             return $saldo +=$data->jumlah_yangdisetor;
             }
+
             // return $saldo;
         //    return $data->sum('jumlah_yangdisetor');
            
