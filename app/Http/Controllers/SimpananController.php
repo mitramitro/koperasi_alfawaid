@@ -5,6 +5,7 @@ use DataTables;
 use App\Simpanan;
 use App\Anggota;
 use Illuminate\Http\Request;
+use DB;
 
 class SimpananController extends Controller
 {
@@ -34,13 +35,14 @@ class SimpananController extends Controller
         $saldo=0;
         $data= Simpanan::where('anggota_id',$id)->get();
         $count = Simpanan::where('anggota_id', $id)->count();
-
+        $tot = Simpanan::where('anggota_id', $id)->limit(1)->orderBy('id', 'desc');
         
         return DataTables::of($data)
         ->editColumn("namae", function ($data) {
             return $data->anggota->nama_lengkap;
         })->editColumn("alamat", function ($data) {
             return $data->anggota->alamat;
+<<<<<<< HEAD
         })->addColumn('jumlah_saldo', function($data)use($saldo, $count){ 
             if($count == 1){
             $saldo = $data->jumlah_yangdisetor;
@@ -49,6 +51,9 @@ class SimpananController extends Controller
             return $saldo +=$data->jumlah_yangdisetor;
             }
 
+=======
+        })->make(true);
+>>>>>>> 7b360a00510fd4203f1f89cf14a155e64ec04b35
             // return $saldo;
         //    return $data->sum('jumlah_yangdisetor');
            
@@ -64,7 +69,7 @@ class SimpananController extends Controller
             //  $jml_debet = Simpanan::where('anggota_id', $data->anggota_id)->sum('jumlah_yangdisetor');
             //  $jml_kredit = Simpanan::where('anggota_id', $data->anggota_id)->sum('jumlah_yangditarik');
             // return $jml_debet-$data->jumlah_yangditarik;
-        })->make(true);
+       
     }
 
 
@@ -76,20 +81,22 @@ class SimpananController extends Controller
 
 
     public function store(Request $request){
+        $simpan = new Simpanan;
+        $simpan->anggota_id = $request->anggota_id;
+        $simpan->jenis_simpanan = $request->jenis_simpanan;
+        $simpan->jenis_transaksi = $request->jenis_transaksi;
+        if($request->jenis_transaksi == "Simpanan") {
+            $simpan->jumlah_yangdisetor = $request->jumlah_yangdisetor;
+        } else {
+            $simpan->jumlah_yangditarik = $request->jumlah_yangditarik;
+        }
+        $simpan->save();
 
-        // $request->validate([
-        //     "nama_lengkap"=>"required",
-        //     "tgl_daftar"=>"required",
-        //     "jk"=>"required",
-        //     "pekerjaan"=>"required",
-        //     "tempat_lahir"=>"required",
-        //     "tgl_lahir"=>"required",
-        //     "alamat"=>"required",
-        //     "kartu_identifikasi"=>"required",
-        //     "nohp"=>"required",
-        // ]);
-        Simpanan::create($request->all());
-        // return $request;
+        $sixe = Simpanan::latest()->where('anggota_id', $request->anggota_id)->sum(DB::raw('jumlah_yangdisetor - jumlah_yangditarik'));
+        $simpan->jumlah_saldo = $sixe;
+        $simpan->update();
+
+
         return redirect('/simpanan/detile_simpanan/'.$request->anggota_id)->with('status', 'Data Anggota Berhasil ditambahkan!');
     }
 

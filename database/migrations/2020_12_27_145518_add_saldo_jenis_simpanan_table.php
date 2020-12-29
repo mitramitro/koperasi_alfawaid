@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddJenisTransaksiToSimpananTable extends Migration
+class AddSaldoJenisSimpananTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class AddJenisTransaksiToSimpananTable extends Migration
     public function up()
     {
         Schema::table('simpanan', function (Blueprint $table) {
-            $table->string('jenis_transaksi')->after('anggota_id');
-            $table->integer('jumlah_yangditarik')->after('jumlah_yangdisetor');
+            $table->integer('jumlah_saldo')->default(100);
         });
+        
     }
 
     /**
@@ -26,10 +26,6 @@ class AddJenisTransaksiToSimpananTable extends Migration
      */
     public function down()
     {
-        Schema::table('simpanan', function (Blueprint $table) {
-            $table->dropColomn('jenis_transaksi');
-            $table->dropColomn('jumlah_yangditarik');
-            $table->dropColomn('jumlah_saldo');
-        });
+        $table->dropColumn('jumlah_saldo');
     }
 }

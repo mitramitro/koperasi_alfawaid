@@ -118,7 +118,7 @@
                   </div> -->
                   <div class="form-group">
                         <label>Jenis Penarikan</label>
-                        <select class="form-control" name="jenis_simpanan" >
+                        <select class="form-control" name="jenis_simpanan">
                           <option value=">Modal Pokok">Modal Pokok</option>
                           <option value="Modal Wajib">Modal Wajib</option>
                           <option value="Simpanan Sukarela (akad Qord)">Simpanan Sukarela (akad Qord)</option>
@@ -128,9 +128,7 @@
                     <label for="Jumlah">Jumlah Penarikan</label>
                     <input type="Jumlah" name="jumlah_yangditarik" autocomplete="off" class="form-control" id="Jumlah" placeholder="Jumlah">
                   </div>
-                  <input type="hidden" name="jenis_transaksi" value="Penarikan" autocomplete="off" class="form-control" id="Jumlah" placeholder="Jumlah">
-
-                  
+                  <input type="hidden" name="jenis_transaksi" value="Penarikan" autocomplete="off" class="form-control" id="Jumlah" placeholder="Jumlah">                  
 
                   
 
